@@ -20,6 +20,36 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; The following bound literals are used by the macros below:
+;;
+;; :call :prepare quote quasiquote em-cut em-cute =>
+;; ... <> unquote unquote-splicing
+;;
+;; The following possibly unbound literal is used by the macros below:
+;;
+;; ellipsis (second rule of em-syntax-rules-aux2 below
+
+;; Each of these pose only a problem for hygiene if the identifier is
+;; inserted once as a literal and once as a pattern variable, in
+;; different instances of macro transcription and when the two
+;; identifiers are not bound-identifier=?.
+
+;; We have to find all occurrences of identifiers that will later
+;; become pattern variables.
+
+;; For that, we have to locate macros that expand into syntax-rules.
+;;
+;;
+
+;; Observations:
+;;
+;; ellipsis is probably no problem because it is threaded through the
+;; macro expansion.  As is ....
+;;
+;; em-cut and em-cute are also never generated as a eventual pattern variable
+;; or literal.
+
+
 ;; Secret syntactic literals
 (define-syntax :call (syntax-rules ()))
 (define-syntax :prepare (syntax-rules ()))
